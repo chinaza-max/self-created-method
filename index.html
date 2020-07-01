@@ -1,0 +1,109 @@
+!<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 'list' main list;
+        let list=[1,2,3,4,5,6];
+        //'list2' new list;
+        let list2=[];
+    class Uni{
+        constructor(list,list2){
+            this.list=list;
+            this.list2=list2;
+       
+        }
+        /*this method(update_list()) is for emptying the main list and tranfering the content of the newly
+        created to the main list*/
+        update_list(){
+           this.list=[];
+           for(let b in this.list2){
+               this.list[b]=this.list2[b];
+           }
+           //transferring the updated new list to the main list in defined  globally variable 
+           list=this.list2
+           return;
+        }
+        inFront(value){
+        /*'list2_index_2' variable is use to change the index of the new list,but starting from the second position becus the 
+        first position is already occupied  by a given value by the user*/
+        let list2_index_2=1;
+            for(let j in this.list){   
+                this.list2[0]=value;
+                this.list2[list2_index_2]=this.list[j];
+                list2_index_2++;
+            } 
+            list2_index_2=1;this.update_list();
+        }
+        inback(value){
+            /*this variable is use for holding the last index of the main list and insert at last part of 
+            the new list*/ 
+           let index_holder=0;
+           this.list2=this.list;
+            for(let i in this.list){index_holder=i}
+            index_holder++;
+            this.list2[index_holder]=value;
+            this.update_list();
+            }
+        anywhere(numTo_insert,choose_index){
+        /*'list2_index_2' variable is use to change the index of the new list,but starting from the second position becus the 
+        first position is already occupied  by a given value by the user*/
+        let list2_index_2=1;
+        //'list_index' variable is use to change the index of the main list   
+        let list_index=0;
+            //the 'list2_index' variable is to be changing the index on the new list as well as inserting;
+            /*'i' variable is use for looping through the current list,by assigning all the index of the initial 
+            list individually to 'i';*/
+            let  list2_index=0; 
+            //'replaced_value'variable  is use to hold the initial value at the index you want to insert
+            let replaced_value=0;
+            for(let i in this.list){
+                //this 'if' statement is use to insert infront if required 
+                if(choose_index-1==-1){  
+                     //'j' variable is use to change the index of the main list  when the index chosen for insection is '0'
+                    for(let j in this.list){   
+                            this.list2[0]=numTo_insert;
+                            this.list2[list2_index_2]=this.list[j];
+                            list2_index_2++;
+                    } 
+                    list2_index_2=1;
+                 }
+                 // This 'else if' statement handle the full transfer of the main list  to a new list 
+                else if((choose_index-1!=i)&&(this.list[list_index]!=undefined)){ 
+                    this.list2[list2_index]=this.list[list_index];
+                }       
+                // this 'else if' breaks the full transfer to add the new value in between 
+                else if (choose_index-1==i) {                     
+                    this.list2[list2_index]=this.list[list_index];
+                    list_index++;list2_index++;
+                    replaced_value=this.list[list_index];
+                    this.list2[list2_index]=numTo_insert;
+                    if( replaced_value){
+                        list2_index++;
+                        this.list2[list2_index]= replaced_value;
+                        replaced_value=0;
+                    }
+                }  
+                list2_index++; list_index++;
+            }
+            //resetting  'list2_index' and 'list_index' to it initial state
+            list2_index=0;list_index=0;this.update_list();
+        }
+    }
+let yes=new Uni(list,list2);   
+//yes.inFront(2);
+yes.inback(3);
+yes.inback(3);
+yes.inback(3);
+yes.inFront(9)
+yes.inFront(0)
+yes.anywhere(2,4)
+console.log(list);
+
+    </script>
+</body>
+</html>
